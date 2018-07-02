@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/app/Http/Controllers/PrescrireController.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/app/Http/Controllers/Controller.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/app/modeles/Medicament.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/app/Http/Controllers/MangaController.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/resources/views/formMedicament.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/resources/views/formPrescrire.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/app/modeles/Prescrire.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/resources/views/listePrescrires.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/resources/views/layouts/master.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/app/Http/Controllers/Type_individuController.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/resources/views/listeMedicaments.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/resources/views/home.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/app/Http/Controllers/GenreController.php</file>
+            <file>file:/C:/xampp/htdocs/Gsb2/Gsb2/app/Http/Controllers/DosageController.php</file>
+        </group>
+    </open-files>
+</project-private>

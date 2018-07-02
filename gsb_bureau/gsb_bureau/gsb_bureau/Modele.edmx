@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="gsbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="dosage">
+          <Key>
+            <PropertyRef Name="id_dosage" />
+          </Key>
+          <Property Name="id_dosage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qte_dosage" Type="int" />
+          <Property Name="unite_dosage" Type="char" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="famille">
+          <Key>
+            <PropertyRef Name="id_famille" />
+          </Key>
+          <Property Name="id_famille" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lib_famille" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="medicament">
+          <Key>
+            <PropertyRef Name="id_medicament" />
+          </Key>
+          <Property Name="id_medicament" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_famille" Type="int" />
+          <Property Name="depot_legal" Type="varchar" MaxLength="100" />
+          <Property Name="nom_commercial" Type="varchar" MaxLength="100" />
+          <Property Name="effets" Type="varchar" MaxLength="512" />
+          <Property Name="contre_indication" Type="char" MaxLength="255" />
+          <Property Name="prix_echantillon" Type="decimal" Precision="11" Scale="2" />
+        </EntityType>
+        <EntityType Name="praticien">
+          <Key>
+            <PropertyRef Name="id_praticien" />
+          </Key>
+          <Property Name="id_praticien" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_type_praticien" Type="int" />
+          <Property Name="nom_praticien" Type="varchar" MaxLength="100" />
+          <Property Name="prenom_praticien" Type="varchar" MaxLength="100" />
+          <Property Name="adresse_praticien" Type="varchar" MaxLength="200" />
+          <Property Name="cp_praticien" Type="char" MaxLength="5" />
+          <Property Name="ville_praticien" Type="varchar" MaxLength="100" />
+          <Property Name="coef_notoriete" Type="decimal" Precision="11" Scale="2" />
+        </EntityType>
+        <EntityType Name="prescrire">
+          <Key>
+            <PropertyRef Name="id_dosage" />
+            <PropertyRef Name="id_medicament" />
+          </Key>
+          <Property Name="id_dosage" Type="int" Nullable="false" />
+          <Property Name="id_medicament" Type="int" Nullable="false" />
+          <Property Name="id_type_individu" Type="int" Nullable="false" />
+          <Property Name="posologie" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="type_individu">
+          <Key>
+            <PropertyRef Name="id_type_individu" />
+          </Key>
+          <Property Name="id_type_individu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lib_type_individu" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_medicament__id_famille">
+          <End Role="famille" Type="Self.famille" Multiplicity="0..1" />
+          <End Role="medicament" Type="Self.medicament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="famille">
+              <PropertyRef Name="id_famille" />
+            </Principal>
+            <Dependent Role="medicament">
+              <PropertyRef Name="id_famille" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_prescrire__id_dosage">
+          <End Role="dosage" Type="Self.dosage" Multiplicity="1" />
+          <End Role="prescrire" Type="Self.prescrire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dosage">
+              <PropertyRef Name="id_dosage" />
+            </Principal>
+            <Dependent Role="prescrire">
+              <PropertyRef Name="id_dosage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_prescrire__id_medicament">
+          <End Role="medicament" Type="Self.medicament" Multiplicity="1" />
+          <End Role="prescrire" Type="Self.prescrire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="medicament">
+              <PropertyRef Name="id_medicament" />
+            </Principal>
+            <Dependent Role="prescrire">
+              <PropertyRef Name="id_medicament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_prescrire__id_type_individu">
+          <End Role="type_individu" Type="Self.type_individu" Multiplicity="1" />
+          <End Role="prescrire" Type="Self.prescrire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type_individu">
+              <PropertyRef Name="id_type_individu" />
+            </Principal>
+            <Dependent Role="prescrire">
+              <PropertyRef Name="id_type_individu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gsbModelStoreContainer">
+          <EntitySet Name="dosage" EntityType="Self.dosage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="famille" EntityType="Self.famille" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="medicament" EntityType="Self.medicament" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="praticien" EntityType="Self.praticien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prescrire" EntityType="Self.prescrire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="type_individu" EntityType="Self.type_individu" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_medicament__id_famille" Association="Self.FK_medicament__id_famille">
+            <End Role="famille" EntitySet="famille" />
+            <End Role="medicament" EntitySet="medicament" />
+          </AssociationSet>
+          <AssociationSet Name="FK_prescrire__id_dosage" Association="Self.FK_prescrire__id_dosage">
+            <End Role="dosage" EntitySet="dosage" />
+            <End Role="prescrire" EntitySet="prescrire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_prescrire__id_medicament" Association="Self.FK_prescrire__id_medicament">
+            <End Role="medicament" EntitySet="medicament" />
+            <End Role="prescrire" EntitySet="prescrire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_prescrire__id_type_individu" Association="Self.FK_prescrire__id_type_individu">
+            <End Role="type_individu" EntitySet="type_individu" />
+            <End Role="prescrire" EntitySet="prescrire" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="gsbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="dosage">
+          <Key>
+            <PropertyRef Name="id_dosage" />
+          </Key>
+          <Property Name="id_dosage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qte_dosage" Type="Int32" />
+          <Property Name="unite_dosage" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="prescrire" Relationship="Self.FK_prescrire__id_dosage" FromRole="dosage" ToRole="prescrire" />
+        </EntityType>
+        <EntityType Name="famille">
+          <Key>
+            <PropertyRef Name="id_famille" />
+          </Key>
+          <Property Name="id_famille" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lib_famille" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="medicament" Relationship="Self.FK_medicament__id_famille" FromRole="famille" ToRole="medicament" />
+        </EntityType>
+        <EntityType Name="medicament">
+          <Key>
+            <PropertyRef Name="id_medicament" />
+          </Key>
+          <Property Name="id_medicament" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_famille" Type="Int32" />
+          <Property Name="depot_legal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nom_commercial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="effets" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="contre_indication" Type="String" MaxLength="255" FixedLength="true" Unicode="false" />
+          <Property Name="prix_echantillon" Type="Decimal" Precision="11" Scale="2" />
+          <NavigationProperty Name="famille" Relationship="Self.FK_medicament__id_famille" FromRole="medicament" ToRole="famille" />
+          <NavigationProperty Name="prescrire" Relationship="Self.FK_prescrire__id_medicament" FromRole="medicament" ToRole="prescrire" />
+        </EntityType>
+        <EntityType Name="praticien">
+          <Key>
+            <PropertyRef Name="id_praticien" />
+          </Key>
+          <Property Name="id_praticien" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_type_praticien" Type="Int32" />
+          <Property Name="nom_praticien" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="prenom_praticien" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="adresse_praticien" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cp_praticien" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ville_praticien" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="coef_notoriete" Type="Decimal" Precision="11" Scale="2" />
+        </EntityType>
+        <EntityType Name="prescrire">
+          <Key>
+            <PropertyRef Name="id_dosage" />
+            <PropertyRef Name="id_medicament" />
+          </Key>
+          <Property Name="id_dosage" Type="Int32" Nullable="false" />
+          <Property Name="id_medicament" Type="Int32" Nullable="false" />
+          <Property Name="id_type_individu" Type="Int32" Nullable="false" />
+          <Property Name="posologie" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="dosage" Relationship="Self.FK_prescrire__id_dosage" FromRole="prescrire" ToRole="dosage" />
+          <NavigationProperty Name="medicament" Relationship="Self.FK_prescrire__id_medicament" FromRole="prescrire" ToRole="medicament" />
+          <NavigationProperty Name="type_individu" Relationship="Self.FK_prescrire__id_type_individu" FromRole="prescrire" ToRole="type_individu" />
+        </EntityType>
+        <EntityType Name="type_individu">
+          <Key>
+            <PropertyRef Name="id_type_individu" />
+          </Key>
+          <Property Name="id_type_individu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lib_type_individu" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="prescrire" Relationship="Self.FK_prescrire__id_type_individu" FromRole="type_individu" ToRole="prescrire" />
+        </EntityType>
+        <Association Name="FK_prescrire__id_dosage">
+          <End Role="dosage" Type="Self.dosage" Multiplicity="1" />
+          <End Role="prescrire" Type="Self.prescrire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dosage">
+              <PropertyRef Name="id_dosage" />
+            </Principal>
+            <Dependent Role="prescrire">
+              <PropertyRef Name="id_dosage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_medicament__id_famille">
+          <End Role="famille" Type="Self.famille" Multiplicity="0..1" />
+          <End Role="medicament" Type="Self.medicament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="famille">
+              <PropertyRef Name="id_famille" />
+            </Principal>
+            <Dependent Role="medicament">
+              <PropertyRef Name="id_famille" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_prescrire__id_medicament">
+          <End Role="medicament" Type="Self.medicament" Multiplicity="1" />
+          <End Role="prescrire" Type="Self.prescrire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="medicament">
+              <PropertyRef Name="id_medicament" />
+            </Principal>
+            <Dependent Role="prescrire">
+              <PropertyRef Name="id_medicament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_prescrire__id_type_individu">
+          <End Role="type_individu" Type="Self.type_individu" Multiplicity="1" />
+          <End Role="prescrire" Type="Self.prescrire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="type_individu">
+              <PropertyRef Name="id_type_individu" />
+            </Principal>
+            <Dependent Role="prescrire">
+              <PropertyRef Name="id_type_individu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gsbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="dosage" EntityType="Self.dosage" />
+          <EntitySet Name="famille" EntityType="Self.famille" />
+          <EntitySet Name="medicament" EntityType="Self.medicament" />
+          <EntitySet Name="praticien" EntityType="Self.praticien" />
+          <EntitySet Name="prescrire" EntityType="Self.prescrire" />
+          <EntitySet Name="type_individu" EntityType="Self.type_individu" />
+          <AssociationSet Name="FK_prescrire__id_dosage" Association="Self.FK_prescrire__id_dosage">
+            <End Role="dosage" EntitySet="dosage" />
+            <End Role="prescrire" EntitySet="prescrire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_medicament__id_famille" Association="Self.FK_medicament__id_famille">
+            <End Role="famille" EntitySet="famille" />
+            <End Role="medicament" EntitySet="medicament" />
+          </AssociationSet>
+          <AssociationSet Name="FK_prescrire__id_medicament" Association="Self.FK_prescrire__id_medicament">
+            <End Role="medicament" EntitySet="medicament" />
+            <End Role="prescrire" EntitySet="prescrire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_prescrire__id_type_individu" Association="Self.FK_prescrire__id_type_individu">
+            <End Role="type_individu" EntitySet="type_individu" />
+            <End Role="prescrire" EntitySet="prescrire" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="gsbModelStoreContainer" CdmEntityContainer="gsbEntities">
+          <EntitySetMapping Name="dosage">
+            <EntityTypeMapping TypeName="gsbModel.dosage">
+              <MappingFragment StoreEntitySet="dosage">
+                <ScalarProperty Name="id_dosage" ColumnName="id_dosage" />
+                <ScalarProperty Name="qte_dosage" ColumnName="qte_dosage" />
+                <ScalarProperty Name="unite_dosage" ColumnName="unite_dosage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="famille">
+            <EntityTypeMapping TypeName="gsbModel.famille">
+              <MappingFragment StoreEntitySet="famille">
+                <ScalarProperty Name="id_famille" ColumnName="id_famille" />
+                <ScalarProperty Name="lib_famille" ColumnName="lib_famille" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="medicament">
+            <EntityTypeMapping TypeName="gsbModel.medicament">
+              <MappingFragment StoreEntitySet="medicament">
+                <ScalarProperty Name="id_medicament" ColumnName="id_medicament" />
+                <ScalarProperty Name="id_famille" ColumnName="id_famille" />
+                <ScalarProperty Name="depot_legal" ColumnName="depot_legal" />
+                <ScalarProperty Name="nom_commercial" ColumnName="nom_commercial" />
+                <ScalarProperty Name="effets" ColumnName="effets" />
+                <ScalarProperty Name="contre_indication" ColumnName="contre_indication" />
+                <ScalarProperty Name="prix_echantillon" ColumnName="prix_echantillon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="praticien">
+            <EntityTypeMapping TypeName="gsbModel.praticien">
+              <MappingFragment StoreEntitySet="praticien">
+                <ScalarProperty Name="id_praticien" ColumnName="id_praticien" />
+                <ScalarProperty Name="id_type_praticien" ColumnName="id_type_praticien" />
+                <ScalarProperty Name="nom_praticien" ColumnName="nom_praticien" />
+                <ScalarProperty Name="prenom_praticien" ColumnName="prenom_praticien" />
+                <ScalarProperty Name="adresse_praticien" ColumnName="adresse_praticien" />
+                <ScalarProperty Name="cp_praticien" ColumnName="cp_praticien" />
+                <ScalarProperty Name="ville_praticien" ColumnName="ville_praticien" />
+                <ScalarProperty Name="coef_notoriete" ColumnName="coef_notoriete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prescrire">
+            <EntityTypeMapping TypeName="gsbModel.prescrire">
+              <MappingFragment StoreEntitySet="prescrire">
+                <ScalarProperty Name="id_dosage" ColumnName="id_dosage" />
+                <ScalarProperty Name="id_medicament" ColumnName="id_medicament" />
+                <ScalarProperty Name="id_type_individu" ColumnName="id_type_individu" />
+                <ScalarProperty Name="posologie" ColumnName="posologie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="type_individu">
+            <EntityTypeMapping TypeName="gsbModel.type_individu">
+              <MappingFragment StoreEntitySet="type_individu">
+                <ScalarProperty Name="id_type_individu" ColumnName="id_type_individu" />
+                <ScalarProperty Name="lib_type_individu" ColumnName="lib_type_individu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

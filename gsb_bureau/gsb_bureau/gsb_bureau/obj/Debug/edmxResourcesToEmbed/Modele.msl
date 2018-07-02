@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="gsbModelStoreContainer" CdmEntityContainer="gsbEntities">
+    <EntitySetMapping Name="dosage">
+      <EntityTypeMapping TypeName="gsbModel.dosage">
+        <MappingFragment StoreEntitySet="dosage">
+          <ScalarProperty Name="id_dosage" ColumnName="id_dosage" />
+          <ScalarProperty Name="qte_dosage" ColumnName="qte_dosage" />
+          <ScalarProperty Name="unite_dosage" ColumnName="unite_dosage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="famille">
+      <EntityTypeMapping TypeName="gsbModel.famille">
+        <MappingFragment StoreEntitySet="famille">
+          <ScalarProperty Name="id_famille" ColumnName="id_famille" />
+          <ScalarProperty Name="lib_famille" ColumnName="lib_famille" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="medicament">
+      <EntityTypeMapping TypeName="gsbModel.medicament">
+        <MappingFragment StoreEntitySet="medicament">
+          <ScalarProperty Name="id_medicament" ColumnName="id_medicament" />
+          <ScalarProperty Name="id_famille" ColumnName="id_famille" />
+          <ScalarProperty Name="depot_legal" ColumnName="depot_legal" />
+          <ScalarProperty Name="nom_commercial" ColumnName="nom_commercial" />
+          <ScalarProperty Name="effets" ColumnName="effets" />
+          <ScalarProperty Name="contre_indication" ColumnName="contre_indication" />
+          <ScalarProperty Name="prix_echantillon" ColumnName="prix_echantillon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="praticien">
+      <EntityTypeMapping TypeName="gsbModel.praticien">
+        <MappingFragment StoreEntitySet="praticien">
+          <ScalarProperty Name="id_praticien" ColumnName="id_praticien" />
+          <ScalarProperty Name="id_type_praticien" ColumnName="id_type_praticien" />
+          <ScalarProperty Name="nom_praticien" ColumnName="nom_praticien" />
+          <ScalarProperty Name="prenom_praticien" ColumnName="prenom_praticien" />
+          <ScalarProperty Name="adresse_praticien" ColumnName="adresse_praticien" />
+          <ScalarProperty Name="cp_praticien" ColumnName="cp_praticien" />
+          <ScalarProperty Name="ville_praticien" ColumnName="ville_praticien" />
+          <ScalarProperty Name="coef_notoriete" ColumnName="coef_notoriete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="prescrire">
+      <EntityTypeMapping TypeName="gsbModel.prescrire">
+        <MappingFragment StoreEntitySet="prescrire">
+          <ScalarProperty Name="id_dosage" ColumnName="id_dosage" />
+          <ScalarProperty Name="id_medicament" ColumnName="id_medicament" />
+          <ScalarProperty Name="id_type_individu" ColumnName="id_type_individu" />
+          <ScalarProperty Name="posologie" ColumnName="posologie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="type_individu">
+      <EntityTypeMapping TypeName="gsbModel.type_individu">
+        <MappingFragment StoreEntitySet="type_individu">
+          <ScalarProperty Name="id_type_individu" ColumnName="id_type_individu" />
+          <ScalarProperty Name="lib_type_individu" ColumnName="lib_type_individu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
